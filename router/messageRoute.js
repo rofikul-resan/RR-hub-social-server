@@ -22,7 +22,6 @@ msgRoute.post("/msg", async (req, res) => {
     }
     res.end();
   } catch (err) {
-    console.log(err);
     res.sendStatus(500);
   }
 });
@@ -36,14 +35,12 @@ msgRoute.get("/msg/:id", async (req, res) => {
     );
     res.send(result);
   } catch (err) {
-    console.log(err);
     res.sendStatus(500);
   }
 });
 
 msgRoute.get("/user", async (req, res) => {
   const userId = req.query.userId;
-  console.log("user", userId);
   try {
     const userMessage = await Message.find({
       "members.user": userId,
@@ -53,7 +50,6 @@ msgRoute.get("/user", async (req, res) => {
       .sort({ updatedAt: -1 });
     res.send(userMessage);
   } catch (err) {
-    console.log(err);
     res.sendStatus(500);
   }
 });

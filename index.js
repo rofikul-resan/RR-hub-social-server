@@ -37,8 +37,6 @@ app.use("/user", userRoute);
 app.use("/messages", msgRoute);
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
-
   socket.on("Enter-user", async ({ userId }) => {
     const result = await User.updateOne(
       { _id: userId },
@@ -61,9 +59,7 @@ io.on("connection", (socket) => {
 
   socket.on("r-chat", ({ userId }) => {
     socket.join(userId);
-    console.log(userId);
     socket.on("disconnect", () => {
-      console.log("leave");
       socket.leave(userId);
     });
   });
@@ -83,9 +79,7 @@ app.get("/", (req, res) => {
 
 app.post("/jwt", async (req, res) => {
   const data = req.body;
-  console.log(data);
   const token = await createJwtToken(data, process.env.JWT_SECRET);
-  console.log(token);
   res.send({ token });
 });
 

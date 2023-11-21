@@ -10,7 +10,7 @@ userRoute.get("/logged-user", verifyJWT, async (req, res) => {
     const user = await User.findOne({ email: email }).select({ password: 0 });
     res.send(user);
   } catch {
-    console.log("err");
+    res.sendStatus(500);
   }
 });
 
@@ -29,7 +29,6 @@ userRoute.get("/search", async (req, res) => {
       res.end();
     }
   } catch (err) {
-    console.log(err);
     res.sendStatus(500);
   }
 });
@@ -59,7 +58,6 @@ userRoute.post("/create-user", async (req, res) => {
       });
     }
   } catch (err) {
-    console.log(err.message);
     res.sendStatus(500);
   }
 });
@@ -83,7 +81,6 @@ userRoute.post("/login", async (req, res) => {
 
     res.json(result);
   } catch (err) {
-    console.log(err);
     res.sendStatus(500);
   }
 });
